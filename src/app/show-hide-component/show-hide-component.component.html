@@ -1,0 +1,17 @@
+<p>show-hide-component works!</p>
+
+<nav>
+  <button (click)="toggleAnimations()">Toggle Animation</button>
+  <button (click)="toggle()">Toggle</button>
+</nav>
+
+<div [@.disabled]="isDisabled">
+  <div [@childAnimation]="isOpen? 'open':'close'" class="open-close-container">
+    <p>this box is now {{isOpen ? 'open' : 'close'}}</p>
+  </div>
+</div>
+
+<button (click)="toggleDisplay()">Show Hide</button>
+<div [@showHide]="isShow ? 'show' : 'hide'" class="open-close-container">
+  <p>This is a show/hide box.  It is now {{ isShow ? "shown" : "hidden" }}</p>
+</div>

@@ -1,0 +1,92 @@
+<p> animation-with-reactive-form works! </p>
+
+<div class="jumbotron">
+  <form [formGroup]="customerFormData" (ngSubmit)="!disableSubmitBtn && onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-5">
+        <label>First Name:</label>
+        <input type="text" class="form-control" formControlName="firstName" required>
+      </div>
+      <div class="form-group col-5">
+        <label>Last Name:</label>
+        <input type="text" class="form-control" formControlName="lastName" required>
+      </div>
+    </div>
+      <div class="form-row">
+        <div class="form-group col-5">
+        <label>Select Gender:</label>
+        <select class="form-control" formControlName="gender" required>
+          <option male>Male</option>
+          <option female>Female</option>
+          <option others>Others</option>
+        </select>
+        </div>
+      </div>
+      <br/><br/>
+      <div>
+        <h2>Contact Details</h2>
+        <div class="form-row">
+          <div class="form-group col-5">
+            <label> Email: </label>
+            <input class="form-control" type="text" formControlName="email" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-5">
+            <label>Contact Num:</label>
+            <input class="form-control" type="text" formControlName="contactNum" required>
+          </div>
+      </div>
+      </div>
+      <button class="btn btn-success" [disabled]="disableSubmitBtn" type="submit">Submit</button>
+  </form>
+</div>
+<br/>
+<hr/>
+<div class="card-body">
+  <h4>Customer List</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Toggle Display</th>
+        <th>Salutation</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customerFormDataArray">
+        <td>
+          <button class="btn btn-info" (click)="toggleDisplay(customer)">{{ customer.isShow ? "Hide" : "Show" }}</button>
+        </td>
+        <td>{{getSalutation(customer)}}</td>
+        <td>{{customer.firstName}}</td>
+        <td>
+          <div [@showHide]="customer.isShow ? 'show' : 'hide'">
+            <p>{{customer.lastName}}</p>
+          </div>
+        </td>
+        <td>
+          <div [@showHide]="customer.isShow ? 'show' : 'hide'">
+            <p>{{customer.gender}}</p>
+          </div>
+        </td>
+        <td>
+          <div [@showHide]="customer.isShow ? 'show' : 'hide'">
+            <p>{{customer.email}}</p>
+          </div>
+        </td>
+        <td>
+          <div [@showHide]="customer.isShow ? 'show' : 'hide'">
+            <p>{{customer.contactNum}}</p>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="!customerFormDataArray.length">
+        <td style="text-align: center;" colspan="4">No Customer(s) Found!</td>
+      </tr>
+    </tbody>
+  </table>
